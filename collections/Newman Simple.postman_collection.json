@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "4925fdca-4654-44f9-8f84-14211a867312",
+		"name": "Newman Simple",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18237009",
+		"_collection_link": "https://prednasky.postman.co/workspace/Newman-Course~f4274440-adbb-4ada-adce-8caf96c3fb61/collection/18237009-4925fdca-4654-44f9-8f84-14211a867312?action=share&source=collection_link&creator=18237009"
+	},
+	"item": [
+		{
+			"name": "Training POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Response status is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response body have properties\", () => {",
+							"    pm.expect(body).to.haveOwnProperty(\"id\");",
+							"    pm.expect(body).to.haveOwnProperty(\"message\");",
+							"    pm.expect(body).to.haveOwnProperty(\"timestamp\");",
+							"});",
+							"",
+							"pm.test(\"Response body.id is number\", () => {",
+							"    pm.expect(body.id).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Response body.message is string\", () => {",
+							"    pm.expect(body.message).to.be.a(\"string\");",
+							"})",
+							"",
+							"",
+							"pm.test(\"Response body.timestamp is string\", () => {",
+							"    pm.expect(body.timestamp).to.be.a(\"string\");",
+							"})",
+							"",
+							"pm.test(\"Response body.id is 1\", () => {",
+							"    pm.expect(body.id).to.eq(1);",
+							"});",
+							"",
+							"pm.test(\"Response body.message have correct value\", () => {",
+							"    const expectedText = \"TEG#B Training POST request successful\";",
+							"    pm.expect(body.message).to.eq(expectedText)",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://tegb-backend-877a0b063d29.herokuapp.com/train",
+					"protocol": "https",
+					"host": [
+						"tegb-backend-877a0b063d29",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"train"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'https://tegb-backend-877a0b063d29.herokuapp.comtrain'"
+			},
+			"response": []
+		},
+		{
+			"name": "Training GET with Header",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"reqHeader\", \"Testujeme Newman\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Response status is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body have properties\", () => {",
+							"    pm.expect(body).to.haveOwnProperty(\"id\");",
+							"    pm.expect(body).to.haveOwnProperty(\"message\");",
+							"    pm.expect(body).to.haveOwnProperty(\"timestamp\");",
+							"});",
+							"",
+							"pm.test(\"Response body.id is number\", () => {",
+							"    pm.expect(body.id).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Response body.message is string\", () => {",
+							"    pm.expect(body.message).to.be.a(\"string\");",
+							"})",
+							"",
+							"",
+							"pm.test(\"Response body.timestamp is string\", () => {",
+							"    pm.expect(body.timestamp).to.be.a(\"string\");",
+							"})",
+							"",
+							"pm.test(\"Response body.id is 1\", () => {",
+							"    pm.expect(body.id).to.eq(1);",
+							"});",
+							"",
+							"pm.test(\"Response body.message have correct value\", () => {",
+							"    const expectedHeader = pm.variables.get(\"reqHeader\");",
+							"    const expectedText = \"TEG#B Training Header successful. Header value: \" + expectedHeader;",
+							"    pm.expect(body.message).to.eq(expectedText)",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "train",
+						"value": "{{reqHeader}}"
+					}
+				],
+				"url": {
+					"raw": "https://tegb-backend-877a0b063d29.herokuapp.com/train/header",
+					"protocol": "https",
+					"host": [
+						"tegb-backend-877a0b063d29",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"train",
+						"header"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://tegb-backend-877a0b063d29.herokuapp.com/train/header' \\\n--header 'train: Testujeme v Playwright'"
+			},
+			"response": []
+		},
+		{
+			"name": "Training POST with JSON body",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomEmail = pm.variables.replaceIn('{{$randomExampleEmail}}');",
+							"const randomFirstName = pm.variables.replaceIn('{{$randomFirstName}}');",
+							"const randomLastName = pm.variables.replaceIn('{{$randomLastName}}');",
+							"",
+							"pm.variables.set(\"reqFirstName\", randomFirstName);",
+							"pm.variables.set(\"reqLastName\", randomLastName);",
+							"pm.variables.set(\"reqEmail\", randomEmail);",
+							"pm.variables.set(\"reqPassword\", \"Heslo1234\");",
+							"pm.variables.set(\"reqAge\", 33);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const firstName = pm.variables.get(\"reqFirstName\");",
+							"const lastName = pm.variables.get(\"reqLastName\");",
+							"const email = pm.variables.get(\"reqEmail\");",
+							"const age = pm.variables.get(\"reqAge\");",
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Response status is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response body have properties\", () => {",
+							"    pm.expect(body).to.haveOwnProperty(\"message\");",
+							"    pm.expect(body).to.haveOwnProperty(\"user\");",
+							"    pm.expect(body.user).to.haveOwnProperty(\"email\");",
+							"    pm.expect(body.user).to.haveOwnProperty(\"firstName\");",
+							"    pm.expect(body.user).to.haveOwnProperty(\"lastName\");",
+							"    pm.expect(body.user).to.haveOwnProperty(\"age\");",
+							"    pm.expect(body.user).to.haveOwnProperty(\"id\");",
+							"});",
+							"",
+							"pm.test(\"Response body.message is string\", () => {",
+							"    pm.expect(body.message).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Response body.user is object\", () => {",
+							"    pm.expect(body.user).to.be.a(\"object\");",
+							"});",
+							"",
+							"pm.test(\"Response body.user.email is string\", () => {",
+							"    pm.expect(body.user.email).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Response body.user.firstName is string\", () => {",
+							"    pm.expect(body.user.firstName).to.be.a(\"string\");",
+							"})",
+							"",
+							"pm.test(\"Response body.user.lastName is string\", () => {",
+							"    pm.expect(body.user.lastName).to.be.a(\"string\");",
+							"})",
+							"",
+							"pm.test(\"Response body.user.age is number\", () => {",
+							"    pm.expect(body.user.age).to.be.a(\"number\");",
+							"})",
+							"",
+							"pm.test(\"Response body.user.id is number\", () => {",
+							"    pm.expect(body.user.id).to.be.a(\"number\");",
+							"})",
+							"",
+							"pm.test(\"Response body.id message have correct text\", () => {",
+							"    const expectedText = \"User registered\";",
+							"    pm.expect(body.message).to.eq(expectedText)",
+							"});",
+							"",
+							"pm.test(`Response body.user.email have value: '${email}'`, () => {",
+							"    pm.expect(body.user.email).to.eq(email)",
+							"});",
+							"",
+							"pm.test(`Response body.user.firstName have value: '${firstName}'`, () => {",
+							"    pm.expect(body.user.firstName).to.eq(firstName)",
+							"});",
+							"",
+							"pm.test(`Response body.user.lastName have value: '${lastName}'`, () => {",
+							"    pm.expect(body.user.lastName).to.eq(lastName)",
+							"});",
+							"",
+							"pm.test(`Response body.user.age have value: '${age}'`, () => {",
+							"    pm.expect(body.user.age ).to.eq(age)",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{reqEmail}}\",\n    \"password\": \"{{reqPassword}}\",\n    \"firstName\": \"{{reqFirstName}}\",\n    \"lastName\": \"{{reqLastName}}\",\n    \"age\": {{reqAge}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tegb-backend-877a0b063d29.herokuapp.com/auth/register",
+					"protocol": "https",
+					"host": [
+						"tegb-backend-877a0b063d29",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://tegb-backend-877a0b063d29.herokuapp.com/auth/register' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"email\": \"luke@example.com\",\n    \"password\": \"heslo1\",\n    \"firstName\": \"Luke\",\n    \"lastName\": \"Skywalker\",\n    \"age\": 25\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Training POST with JSON - ajv Schema",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomEmail = pm.variables.replaceIn('{{$randomExampleEmail}}');",
+							"const randomFirstName = pm.variables.replaceIn('{{$randomFirstName}}');",
+							"const randomLastName = pm.variables.replaceIn('{{$randomLastName}}');",
+							"",
+							"pm.variables.set(\"reqFirstName\", randomFirstName);",
+							"pm.variables.set(\"reqLastName\", randomLastName);",
+							"pm.variables.set(\"reqEmail\", randomEmail);",
+							"pm.variables.set(\"reqPassword\", \"Heslo1234\");",
+							"pm.variables.set(\"reqAge\", 33);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const firstName = pm.variables.get(\"reqFirstName\");",
+							"const lastName = pm.variables.get(\"reqLastName\");",
+							"const email = pm.variables.get(\"reqEmail\");",
+							"const age = pm.variables.get(\"reqAge\");",
+							"const body = pm.response.json();",
+							"",
+							"const schema = {",
+							"  type: \"object\",",
+							"  additionalProperties: false,",
+							"  required: [\"message\", \"user\"],",
+							"  properties: {",
+							"    message: { type: \"string\" },",
+							"    user: {",
+							"      type: \"object\",",
+							"      additionalProperties: false,",
+							"      required: [\"email\", \"firstName\", \"lastName\", \"age\", \"id\"],",
+							"      properties: {",
+							"        email: { type: \"string\", format: \"email\" },",
+							"        firstName: { type: \"string\" },",
+							"        lastName: { type: \"string\" },",
+							"        age: { type: \"integer\", minimum: 1, maximum: 130 },",
+							"        id: { type: \"integer\", minimum: 1 }",
+							"      }",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"pm.test(\"Response status is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response body schema is valid\", () => {",
+							"    pm.response.to.have.jsonSchema(schema)",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{reqEmail}}\",\n    \"password\": \"{{reqPassword}}\",\n    \"firstName\": \"{{reqFirstName}}\",\n    \"lastName\": \"{{reqLastName}}\",\n    \"age\": {{reqAge}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tegb-backend-877a0b063d29.herokuapp.com/auth/register",
+					"protocol": "https",
+					"host": [
+						"tegb-backend-877a0b063d29",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://tegb-backend-877a0b063d29.herokuapp.com/auth/register' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"email\": \"luke@example.com\",\n    \"password\": \"heslo1\",\n    \"firstName\": \"Luke\",\n    \"lastName\": \"Skywalker\",\n    \"age\": 25\n}'"
+			},
+			"response": []
+		}
+	]
+}

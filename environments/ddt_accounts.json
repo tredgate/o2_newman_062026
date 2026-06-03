@@ -1,0 +1,26 @@
+[
+  {
+    "accountType": "běžný účet",
+    "accountStartBalance": 1500
+  },
+  {
+    "accountType": "kreditní karta",
+    "accountStartBalance": -300
+  },
+  {
+    "accountType": "spořící účet",
+    "accountStartBalance": 2500.75
+  },
+  {
+    "accountType": "kontokorent",
+    "accountStartBalance": -150.5
+  },
+  {
+    "accountType": "běžný účet",
+    "accountStartBalance": 1000000
+  },
+  {
+    "accountType": "hypotéka",
+    "accountStartBalance": -5000000
+  }
+]
